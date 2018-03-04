@@ -2,15 +2,50 @@
 /*Локальные переменные для объекта--------------------------------*/
 console.log("7. Локальные переменные для объекта");
 
-function makeBuffer(){
+var users = [{
+  name: "Вася",
+  surname: "Иванов",
+  age: 20
+}, {
+  name: "Петя",
+  surname: 'Чапаев',
+  age: 18
+}, {
+  name: "Маша",
+  surname: 'Чапаев',
+  age: 23
+}];
+
+// сделать сортировку по массиву объектов
+users.sort(byField(name));
+
+function byField(field){
+  return function(a, b){
+    a.field > b.field ? 1 : -1;
+  }
+}
+
+users.forEach(function(user){
+  console.log(user.name);
+});
+
+
+
+function makeBuffer(piece){
   var text = '';
 
-  return function(piece){
+  function string (piece){
     if ( arguments.length == 0 ) {
       return text;
     }
-    text += piece;
+    return text += piece;
   };
+
+  string.clear = function(){
+    text = '';
+  }
+
+  return string;
 };
 
 var buffer = makeBuffer();
@@ -18,6 +53,8 @@ buffer('Замыкания');
 buffer(' Использовать');
 buffer(' Нужно!');
 console.log( buffer() );
+buffer.clear();
+console.log( 'buffer: ' + buffer() );
 
 
 function sum(a){
