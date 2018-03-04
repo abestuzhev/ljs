@@ -1,11 +1,17 @@
 /*Методы объектов, this--------------------------------*/
-console.log("Методы объектов, this");
-function func(){
-  console.log(this);
-  // в старом стандарте вызовет window.this
-  // а при use strict выведет undefind
-}
-func();
+var ladder = {
+  step: 0,
+  up: function() { // вверх по лестнице
+    this.step++;
+  },
+  down: function() { // вниз по лестнице
+    this.step--;
+  },
+  showStep: function() { // вывести текущую ступеньку
+    alert( this.step );
+  }
+};
+
 
 console.log(" ");
 /*Модули через замыкания--------------------------------*/
@@ -21,29 +27,10 @@ console.log("Модули через замыкания");
 })();
 
 console.log(" ");
-/*------------------------------------------------------------*/
 /*Локальные переменные для объекта--------------------------------*/
 console.log("7. Локальные переменные для объекта");
 
-// сложный пример
-function makeArmy(){
-  var shooters = [];
-
-  for(var i = 0; i < 10; i++){
-    var i;
-    var shooter = function me(){
-      // alert(me.i);
-    }
-    shooter.i = i;
-    shooters.push(shooter);
-  }
-  return shooters;
-}
-
-var army = makeArmy();
-
-army[0](); // стрелок выводит 10, а должен 0
-army[5](); // стрелок выводит 10...
+var arr = [1, 2, 3, 4, 5, 6, 7];
 
 
 
