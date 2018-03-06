@@ -1,3 +1,60 @@
+/*Статические и фабричные методы--------------------------------*/
+
+function User(userData){
+  if(userData){
+    this.name = userData.name;
+    this.age = userData.age;
+  }
+}
+
+
+
+var str = String.fromCharCode(100);
+console.log(str);
+
+function Journal(date){
+  this.date = date;
+
+  // this.formatDate = function(date){
+  //   return date.getDate() + '.' + (date.getMonth() + 1) + '.' + date.getFullYear();
+  // };
+
+  this.getTitle = function(){
+    return "Выпуск от " + this.formatDate(this.date);
+  };
+}
+
+Journal.compare = function(journalA, journalB){
+  return journalA.date - journalB.date;
+}
+
+Journal.formatDate = function(date){
+  return date.getDate() + '.' + (date.getMonth() + 1) + '.' + date.getFullYear();
+}
+
+//использование
+var journals = [
+  new Journal(new Date(2012, 10, 1)),
+  new Journal(new Date(2013, 0, 1)),
+  new Journal(new Date(2011, 11, 1))
+];
+
+function findMin(journals){
+  var min = 0;
+  for(var i = 0; i < journals.length; i++){
+      if(Journal.compare(journals[min], journals[i]) > 0){
+        min = i;
+      }
+      return journals[min];
+  }
+}
+
+// console.log(findMin(journals).getTitle());
+console.log(Journal.formatDate(new Date));
+
+
+
+
 /*Методы объектов, this--------------------------------*/
 function makeArmy() {
 
@@ -5,7 +62,7 @@ function makeArmy() {
 
   for (var i = 0; i < 10; i++) {
     var shooter = function() { // функция-стрелок
-      alert( i ); // выводит свой номер
+      //alert( i ); // выводит свой номер
     };
     shooters.push(shooter);
   }
