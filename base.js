@@ -1,3 +1,46 @@
+/*Наследование классов в JavaScript*/
+function Animal(name){
+  this.name = name;
+  this.speed = 0;
+}
+
+Animal.prototype.run = function(speed){
+  this.speed +=speed;
+  console.log( this.name + ' бежит, скорость ' + this.speed );
+}
+
+Animal.prototype.stop = function(){
+  this.speed = 0;
+  console.log(this.name + ' стоит');
+}
+
+function Rabbit(name){
+  Animal.apply(this, arguments);
+}
+
+Rabbit.prototype = Object.create(Animal.prototype);
+Rabbit.prototype.constructor = Rabbit;
+
+Rabbit.prototype.jump = function(){
+  this.speed++;
+  console.log(this.name + ' прыгает');
+}
+
+Rabbit.prototype.run = function(){
+  Animal.prototype.run.apply(this, arguments);
+  this.jump();
+  // console.log(this.name + ' прыгает');
+}
+
+
+var rabbit = new Rabbit('Кроль');
+
+console.log(rabbit.run(100));
+// console.log(rabbit.speed);
+// console.log(rabbit.stop());
+
+
+
 /*Статические и фабричные методы--------------------------------*/
 
 function User(userData){
